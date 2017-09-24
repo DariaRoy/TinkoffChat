@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplicationState.background.rawValue: "Background"
     ]
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         print("Application moved from \(states[previousState]!) to \(states[application.applicationState.rawValue]!): \(#function)")
@@ -57,8 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-        print("Application moved from \(states[previousState]!) to \(states[application.applicationState.rawValue]!): \(#function)")
-        previousState = application.applicationState.rawValue
+        print("Application moved from \(states[previousState]!) to \(states[1]!): \(#function)")
+        previousState = 1
         
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
@@ -67,26 +68,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Application moved from \(states[previousState]!) to \(states[application.applicationState.rawValue]!): \(#function)")
         previousState = application.applicationState.rawValue
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        print("Application moved from \(states[previousState]!) to \(states[application.applicationState.rawValue]!): \(#function)")
-        previousState = application.applicationState.rawValue
+        print("Application moved from \(states[previousState]!) to \(states[-1]!): \(#function)")
+        previousState = -1
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
