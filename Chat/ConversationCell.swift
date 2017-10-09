@@ -56,7 +56,8 @@ func getDate (date: (year: Int, month: Int, day: Int, hour: Int, minute: Int, mo
     if date.year < current.year || date.year == current.year && date.month < current.month || date.year == current.year && date.month == current.month && date.day < date.day {
         return "\(date.day) \(date.monthMMM)"
     } else {
-        return "\(date.hour):\(date.minute)"
+        let zero = date.minute < 10 ? "0" : ""
+        return "\(date.hour):\(zero)\(date.minute)"
     }
     
 }
