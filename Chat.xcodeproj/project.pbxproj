@@ -9,17 +9,25 @@
 /* Begin PBXBuildFile section */
 		450B67AB1F7C08690092377B /* ProfileStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */; };
 		450B67AD1F7C10D00092377B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450B67AC1F7C10D00092377B /* ProfileViewController.swift */; };
+		450D53121F8A9D650055C4E3 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450D53111F8A9D650055C4E3 /* ConversationCell.swift */; };
+		450D53141F8AC4070055C4E3 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450D53131F8AC4070055C4E3 /* ConversationViewController.swift */; };
+		450D53161F8AC6BB0055C4E3 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */; };
 		45195C341F72D1B0005D404E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45195C331F72D1B0005D404E /* Media.xcassets */; };
 		45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A59B231F72CA4000B3B22E /* AppDelegate.swift */; };
 		45A59B261F72CA4000B3B22E /* OldProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A59B251F72CA4000B3B22E /* OldProfileViewController.swift */; };
 		45A59B291F72CA4000B3B22E /* OldProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B271F72CA4000B3B22E /* OldProfile.storyboard */; };
 		45A59B2B1F72CA4000B3B22E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2A1F72CA4000B3B22E /* Assets.xcassets */; };
 		45A59B2E1F72CA4000B3B22E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2C1F72CA4000B3B22E /* LaunchScreen.storyboard */; };
+		45C7655C1F8A53770004EFBD /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */; };
+		45C7655E1F8A5B7E0004EFBD /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C7655D1F8A5B7E0004EFBD /* ConversationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileStoryboard.storyboard; sourceTree = "<group>"; };
 		450B67AC1F7C10D00092377B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		450D53111F8A9D650055C4E3 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
+		450D53131F8AC4070055C4E3 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		45195C331F72D1B0005D404E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		45A59B201F72CA3F00B3B22E /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A59B231F72CA4000B3B22E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +36,8 @@
 		45A59B2A1F72CA4000B3B22E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45A59B2D1F72CA4000B3B22E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45A59B2F1F72CA4000B3B22E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
+		45C7655D1F8A5B7E0004EFBD /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +73,13 @@
 				45A59B231F72CA4000B3B22E /* AppDelegate.swift */,
 				45A59B251F72CA4000B3B22E /* OldProfileViewController.swift */,
 				45A59B271F72CA4000B3B22E /* OldProfile.storyboard */,
-				450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */,
 				450B67AC1F7C10D00092377B /* ProfileViewController.swift */,
+				450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */,
+				450D53131F8AC4070055C4E3 /* ConversationViewController.swift */,
+				450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */,
+				45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */,
+				45C7655D1F8A5B7E0004EFBD /* ConversationTableViewCell.swift */,
+				450D53111F8A9D650055C4E3 /* ConversationCell.swift */,
 				45195C331F72D1B0005D404E /* Media.xcassets */,
 				45A59B2A1F72CA4000B3B22E /* Assets.xcassets */,
 				45A59B2C1F72CA4000B3B22E /* LaunchScreen.storyboard */,
@@ -149,9 +164,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				450D53141F8AC4070055C4E3 /* ConversationViewController.swift in Sources */,
 				450B67AD1F7C10D00092377B /* ProfileViewController.swift in Sources */,
+				45C7655C1F8A53770004EFBD /* ConversationsListViewController.swift in Sources */,
+				450D53121F8A9D650055C4E3 /* ConversationCell.swift in Sources */,
 				45A59B261F72CA4000B3B22E /* OldProfileViewController.swift in Sources */,
+				450D53161F8AC6BB0055C4E3 /* ChatTableViewCell.swift in Sources */,
 				45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */,
+				45C7655E1F8A5B7E0004EFBD /* ConversationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
