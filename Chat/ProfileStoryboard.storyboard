@@ -243,54 +243,52 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomingMessage" rowHeight="83" id="K3t-dx-mdb" customClass="ChatTableViewCell" customModule="Chat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="outcomingMessage" focusStyle="custom" id="soG-dk-uei" customClass="ChatTableViewCell" customModule="Chat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="108"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K3t-dx-mdb" id="cFU-YT-PoX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="82.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="soG-dk-uei" id="Bbz-Eg-Dwf">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="107.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-Ym-Bad">
-                                                    <rect key="frame" x="20" y="0.0" width="42" height="83"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2w-ov-inU">
+                                                    <rect key="frame" x="270" y="8" width="42" height="91.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BIw-Ym-Bad" firstAttribute="top" secondItem="cFU-YT-PoX" secondAttribute="top" id="A86-gv-old"/>
-                                                <constraint firstItem="BIw-Ym-Bad" firstAttribute="leading" secondItem="cFU-YT-PoX" secondAttribute="leading" constant="20" symbolic="YES" id="aVC-sH-WB1"/>
-                                                <constraint firstAttribute="bottom" secondItem="BIw-Ym-Bad" secondAttribute="bottom" id="j6V-CM-9SL"/>
+                                                <constraint firstItem="h2w-ov-inU" firstAttribute="top" secondItem="Bbz-Eg-Dwf" secondAttribute="topMargin" id="RYQ-25-rfc"/>
+                                                <constraint firstItem="h2w-ov-inU" firstAttribute="bottom" secondItem="Bbz-Eg-Dwf" secondAttribute="bottomMargin" id="j0S-iS-10h"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="h2w-ov-inU" secondAttribute="trailing" id="xvB-oM-Ke9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageLabel" destination="BIw-Ym-Bad" id="dAE-K9-Pdi"/>
-                                            <outlet property="textLabel" destination="BIw-Ym-Bad" id="MBv-yG-R2m"/>
+                                            <outlet property="messageLabel" destination="h2w-ov-inU" id="qp1-uk-S6Z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="outgoingMessage" rowHeight="83" id="3Od-TI-DeP" customClass="ChatTableViewCell" customModule="Chat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="111" width="320" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomingMessage" focusStyle="custom" id="XNo-UL-84Z" customClass="ChatTableViewCell" customModule="Chat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="136" width="320" height="108"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Od-TI-DeP" id="lhI-UU-ml5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="82.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XNo-UL-84Z" id="VlB-hG-fLI">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="107.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXQ-zd-Nfg">
-                                                    <rect key="frame" x="258" y="0.0" width="42" height="83"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-0W-TxR">
+                                                    <rect key="frame" x="8" y="8" width="42" height="91.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="MXQ-zd-Nfg" secondAttribute="bottom" id="VNf-nC-ois"/>
-                                                <constraint firstItem="MXQ-zd-Nfg" firstAttribute="top" secondItem="lhI-UU-ml5" secondAttribute="top" id="rOw-4z-tJN"/>
-                                                <constraint firstAttribute="trailing" secondItem="MXQ-zd-Nfg" secondAttribute="trailing" constant="20" symbolic="YES" id="tsC-06-ovi"/>
+                                                <constraint firstItem="2T7-0W-TxR" firstAttribute="top" secondItem="VlB-hG-fLI" secondAttribute="topMargin" id="PpK-55-PBp"/>
+                                                <constraint firstItem="2T7-0W-TxR" firstAttribute="bottom" secondItem="VlB-hG-fLI" secondAttribute="bottomMargin" id="TBD-LA-XdO"/>
+                                                <constraint firstItem="2T7-0W-TxR" firstAttribute="leading" secondItem="VlB-hG-fLI" secondAttribute="leadingMargin" id="X7k-cT-jD8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageLabel" destination="MXQ-zd-Nfg" id="BCV-hF-3UK"/>
-                                            <outlet property="textLabel" destination="MXQ-zd-Nfg" id="HVT-Hk-IRk"/>
+                                            <outlet property="messageLabel" destination="2T7-0W-TxR" id="Ddu-mJ-aqR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

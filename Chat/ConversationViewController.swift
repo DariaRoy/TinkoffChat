@@ -26,17 +26,19 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if messages[indexPath.row].id == "in" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "incomingMessage", for: indexPath) as! ChatTableViewCell
+            
             cell.message = messages[indexPath.row].text
-            cell.messageLabel.preferredMaxLayoutWidth = tableView.frame.width * 3 / 4
+            cell.messageLabel?.preferredMaxLayoutWidth = view.frame.width * 0.75
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "outgoingMessage", for: indexPath) as! ChatTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "outcomingMessage", for: indexPath) as! ChatTableViewCell
+            
             cell.message = messages[indexPath.row].text
-            cell.messageLabel.preferredMaxLayoutWidth = tableView.frame.width * 3 / 4
+            cell.messageLabel?.preferredMaxLayoutWidth = view.frame.width * 0.75
             return cell
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,16 +67,4 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         messages.append(message)
         
     }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
