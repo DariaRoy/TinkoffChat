@@ -10,12 +10,14 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var editButton: UIButton! {
-        didSet {
-            editButton.layer.cornerRadius = 8
-            editButton.layer.borderWidth = 1.5
-        }
-    }
+//    @IBOutlet weak var editButton: UIButton! {
+//        didSet {
+//            editButton.layer.cornerRadius = 8
+//            editButton.layer.borderWidth = 1.5
+//        }
+//    }
+    @IBOutlet weak var saveButtonGCD: UIButton!
+    @IBOutlet weak var saveButtonOperation: UIButton!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView! {
@@ -24,6 +26,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
 
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    let dataMenegerGCD = GCDDataManager()
+    
+    
     @IBOutlet weak var pickImage: UIButton! {
         didSet {
             pickImage.backgroundColor = UIColor(red:0.25, green:0.47, blue:0.94, alpha:1.0)
@@ -56,20 +63,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         profileImage.layer.cornerRadius = pickImage.frame.height / 2
         
-        print(editButton.frame)
+        if let profile = dataMenegerGCD.loadData() {
+            nameLabel.text = profile.name
+            profileImage.image = profile.image
+            descriptionLabel.text = profile.description
+        }
+        
+        //print(editButton.frame)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print(editButton.frame)
+        //print(editButton.frame)
         
         //frame не отличается
         //В методе viewDidAppear отличалось бы из-за изменений под верстку на запущенном девайсе
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     
@@ -120,8 +127,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dismiss(animated: true, completion: nil)
     }
     
+    
+    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func saveGCD(_ sender: UIButton) {
+        let profile = ProfileInfo(name: nameLabel.text!, description: "boom", image: profileImage.image)
+        dataMenegerGCD.saveData(info: profile)
+    }
 }

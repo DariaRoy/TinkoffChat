@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -176,22 +177,39 @@
                                         <rect key="frame" x="0.0" y="454" width="320" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qu-tk-1hg">
-                                                <rect key="frame" x="8" y="3" width="304" height="44"/>
+                                                <rect key="frame" x="8" y="3" width="144" height="44"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="DXM-ju-DYh"/>
                                                     <constraint firstAttribute="height" constant="44" id="cQi-94-C29"/>
                                                 </constraints>
-                                                <state key="normal" title="Редактировать">
+                                                <state key="normal" title="GCD">
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveGCD:" destination="P77-TE-CxP" eventType="touchUpInside" id="ojQ-fL-RmL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xlj-bH-61D">
+                                                <rect key="frame" x="168" y="3" width="144" height="44"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="xpg-Ni-Xj2"/>
+                                                </constraints>
+                                                <state key="normal" title="Operation">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="8Qu-tk-1hg" secondAttribute="trailing" constant="8" id="7mZ-Wq-5zs"/>
+                                            <constraint firstItem="Xlj-bH-61D" firstAttribute="width" secondItem="sFr-4Q-xuj" secondAttribute="width" multiplier="0.45" id="1oy-lW-Vp8"/>
+                                            <constraint firstItem="Xlj-bH-61D" firstAttribute="top" secondItem="sFr-4Q-xuj" secondAttribute="top" constant="3" id="ISX-93-BeY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xlj-bH-61D" secondAttribute="trailing" constant="8" id="Iyx-Qb-2oo"/>
                                             <constraint firstAttribute="height" constant="50" id="aPx-Yu-a4Q"/>
+                                            <constraint firstItem="8Qu-tk-1hg" firstAttribute="width" secondItem="sFr-4Q-xuj" secondAttribute="width" multiplier="0.45" id="fGc-Ip-itm"/>
                                             <constraint firstItem="8Qu-tk-1hg" firstAttribute="leading" secondItem="sFr-4Q-xuj" secondAttribute="leading" constant="8" id="mx7-ms-3Ot"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xlj-bH-61D" secondAttribute="bottom" constant="3" id="r7j-sp-91y"/>
                                             <constraint firstAttribute="bottom" secondItem="8Qu-tk-1hg" secondAttribute="bottom" constant="3" id="urS-uc-1ss"/>
                                         </constraints>
                                     </view>
@@ -221,10 +239,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editButton" destination="8Qu-tk-1hg" id="PHJ-KK-OdK"/>
+                        <outlet property="descriptionLabel" destination="9vM-Ve-VYT" id="ziB-Qj-Pj3"/>
                         <outlet property="nameLabel" destination="Lof-ta-tVv" id="yWt-On-GYc"/>
                         <outlet property="pickImage" destination="2as-wQ-aAY" id="qWb-5v-Zyp"/>
                         <outlet property="profileImage" destination="HaN-1i-7Bj" id="p0x-q4-4PV"/>
+                        <outlet property="saveButtonGCD" destination="8Qu-tk-1hg" id="mvj-zG-pXf"/>
+                        <outlet property="saveButtonOperation" destination="Xlj-bH-61D" id="6lP-L5-9YG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amp-Il-NVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
