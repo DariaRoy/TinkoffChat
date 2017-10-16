@@ -12,15 +12,33 @@ import SwiftyJSON
 
 struct ProfileInfo {
     
-    let name: String
-    let description: String
-    let imageData: String?
+    var wasChanged = false
+    
+    var name: String {
+        didSet {
+            wasChanged = true
+        }
+    }
+    var description: String {
+        didSet {
+            wasChanged = true
+        }
+    }
+    
+    var imageData: String? {
+        didSet {
+            wasChanged = true
+        }
+    }
     
     var image: UIImage? {
         get {
             let dataDecoded : Data = Data(base64Encoded: self.imageData ?? "", options: .ignoreUnknownCharacters)!
-            
             return UIImage(data: dataDecoded)
+        }
+        set {
+            let imageData = UIImagePNGRepresentation(image!)
+            self.imageData = imageData?.base64EncodedString(options: .lineLength64Characters)
         }
     }
     
@@ -38,7 +56,7 @@ struct ProfileInfo {
     }
     
     init? (json: JSON) {
-        guard let name = json["name"].string, let description = json["description"].string else {return nil}
+        guard let name = json["name"].string, let description = json["description"].string else { return nil }
         self.name = name
         self.description = description
         self.imageData = json["image"].string

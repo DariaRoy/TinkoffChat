@@ -7,29 +7,69 @@
 //
 
 import UIKit
+import Foundation
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-//    @IBOutlet weak var editButton: UIButton! {
+    
+    //model
+//    var profileInfo: ProfileInfo? {
 //        didSet {
-//            editButton.layer.cornerRadius = 8
-//            editButton.layer.borderWidth = 1.5
+//            self.nameTextField?.text = profileInfo?.name
+//            self.profileImage?.image = profileInfo?.image
+//            self.descriptionTextField?.text = profileInfo?.description
 //        }
 //    }
-    @IBOutlet weak var saveButtonGCD: UIButton!
-    @IBOutlet weak var saveButtonOperation: UIButton!
     
-    @IBOutlet weak var nameLabel: UILabel!
+    
+    var profileChange = false {
+        didSet {
+            saveButtonGCD.isEnabled = profileChange
+            saveButtonOperation.isEnabled = profileChange
+        }
+    }
+    
+    
+    @IBOutlet weak var saveButtonGCD: UIButton! {
+        didSet {
+            saveButtonGCD.isEnabled = false
+            saveButtonGCD.layer.cornerRadius = 8
+            saveButtonGCD.layer.borderWidth = 1.5
+        }
+    }
+    @IBOutlet weak var saveButtonOperation: UIButton!  {
+        didSet {
+            saveButtonOperation.isEnabled = false
+            saveButtonOperation.layer.cornerRadius = 8
+            saveButtonOperation.layer.borderWidth = 1.5
+        }
+    }
+    
+    @IBOutlet weak var nameTextField: UITextField! {
+        didSet {
+            nameTextField.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var descriptionTextField: UITextField! {
+        didSet {
+            descriptionTextField.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    var activeTextField: UITextField!
+    
     @IBOutlet weak var profileImage: UIImageView! {
         didSet {
+            //profileInfo?.image = profileImage.image
             profileImage.layer.masksToBounds = true
         }
     }
 
-    @IBOutlet weak var descriptionLabel: UILabel!
-    
-    let dataMenegerGCD = GCDDataManager()
-    
+    let dataManagerGCD = GCDDataManager()
+    let dataManagerOperation = OperationDataManager()
     
     @IBOutlet weak var pickImage: UIButton! {
         didSet {
@@ -45,44 +85,102 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil,bundle: nibBundleOrNil)
-        //print(editButton.frame)
-        //Outlets еще не установлены
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        //print(editButton.frame)
-        //Outlets еще не установлены
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImage.layer.cornerRadius = pickImage.frame.height / 2
-        
-        if let profile = dataMenegerGCD.loadData() {
-            nameLabel.text = profile.name
-            profileImage.image = profile.image
-            descriptionLabel.text = profile.description
-        }
-        
-        //print(editButton.frame)
-    }
+       
 
-    override func viewWillAppear(_ animated: Bool) {
-        //print(editButton.frame)
         
-        //frame не отличается
-        //В методе viewDidAppear отличалось бы из-за изменений под верстку на запущенном девайсе
+        
+        dataManagerGCD.loadData() {[weak self] (profile) in
+            if profile != nil {
+                //self?.profileInfo = profile
+                self?.nameTextField?.text = profile?.name
+                self?.profileImage?.image = profile?.image
+                self?.descriptionTextField?.text = profile?.description
+                print("YES, i am in viewdidload")
+            } else {
+                print("NOOOO")
+                self?.nameTextField?.text = "Name"
+                self?.profileImage?.image = #imageLiteral(resourceName: "placeholder")
+                self?.descriptionTextField?.text = "About you"
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        let center: NotificationCenter = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+    }
+    
+    @objc func keyboardDidShow (notification: Notification) {
+        print("keyboardDidShow")
+        
+        let info: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardY = self.view.frame.size.height - keyboardSize.height
+
+        let editingTextFieldY: CGFloat! =  self.activeTextField?.frame.origin.y
+        let edit = editingTextFieldY + (activeTextField.superview?.frame.origin.y)!
+
+        if  edit > keyboardY - 60  {
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {
+                self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - keyboardSize.height + self.saveButtonGCD.frame.height , width: self.view.bounds.width, height: self.view.bounds.height)
+            }, completion: nil)
+        }
+
+    }
+    
+    @objc func keyboardWillHide (notification: Notification) {
+                print("keyboardWillHide")
+        UIView.animate(withDuration: 0.25, delay: 0.00, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+
+    }
+    
+    //MARK: UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+        self.profileChange = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+//        //new
+//        if textField === nameTextField {
+//            profileInfo?.name = textField.text ?? "Name"
+//        }
+//        if textField === descriptionTextField {
+//            profileInfo?.description = textField.text ?? "about you"
+//        }
+        
+        //Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+        
     }
 
     
     //MARK: Action
     
     @IBAction func pickImageProfile(_ sender: UIButton) {
+//        nameTextField.resignFirstResponder()
+//        descriptionTextField.resignFirstResponder()
+        self.profileChange = true
+
         
         print("Выбери изображение профиля")
         
@@ -134,7 +232,68 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func saveGCD(_ sender: UIButton) {
-        let profile = ProfileInfo(name: nameLabel.text!, description: "boom", image: profileImage.image)
-        dataMenegerGCD.saveData(info: profile)
+        
+        saveButtonGCD.isEnabled = false
+        saveButtonOperation.isEnabled = false
+        spinner?.startAnimating()
+        
+        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image)
+        dataManagerGCD.saveData(info: info) { [weak self] (result) in
+            self?.spinner.stopAnimating()
+            self?.saveButtonGCD.isEnabled = true
+            self?.saveButtonOperation.isEnabled = true
+            if result {
+                let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
+                
+                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(actionOK)
+                
+                self?.present(alertController, animated: true, completion: nil)
+                
+            } else {
+                let alertController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
+                
+                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(actionOK)
+                
+                let actionRepeat = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self?.saveGCD((self?.saveButtonGCD)!)})
+                alertController.addAction(actionRepeat)
+                
+                self?.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
+    
+    @IBAction func saveOperation(_ sender: UIButton) {
+        saveButtonGCD.isEnabled = false
+        saveButtonOperation.isEnabled = false
+        spinner?.startAnimating()
+        
+        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image)
+        dataManagerOperation.saveData(info: info) { [weak self] (result) in
+            self?.spinner.stopAnimating()
+            self?.saveButtonGCD.isEnabled = true
+            self?.saveButtonOperation.isEnabled = true
+            if result {
+                let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
+                
+                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(actionOK)
+                
+                self?.present(alertController, animated: true, completion: nil)
+                
+            } else {
+                let alertController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
+                
+                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(actionOK)
+                
+                let actionRepeat = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self?.saveOperation((self?.saveButtonOperation)!)})
+                alertController.addAction(actionRepeat)
+                
+                self?.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+
 }

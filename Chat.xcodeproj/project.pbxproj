@@ -15,7 +15,8 @@
 		45195C341F72D1B0005D404E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45195C331F72D1B0005D404E /* Media.xcassets */; };
 		455C0B091F93733E003BDDB6 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C0B0A1F93733E003BDDB6 /* SwiftyJSON.framework */; };
 		455C0B0C1F937B4A003BDDB6 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */; };
-		455C0B0E1F937BB1003BDDB6 /* profileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0D1F937BB1003BDDB6 /* profileInfo.swift */; };
+		455C0B0E1F937BB1003BDDB6 /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */; };
+		455C0B101F94A031003BDDB6 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */; };
 		45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A59B231F72CA4000B3B22E /* AppDelegate.swift */; };
 		45A59B2B1F72CA4000B3B22E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2A1F72CA4000B3B22E /* Assets.xcassets */; };
 		45A59B2E1F72CA4000B3B22E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2C1F72CA4000B3B22E /* LaunchScreen.storyboard */; };
@@ -34,7 +35,8 @@
 		45195C331F72D1B0005D404E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		455C0B0A1F93733E003BDDB6 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
-		455C0B0D1F937BB1003BDDB6 /* profileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileInfo.swift; sourceTree = "<group>"; };
+		455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
+		455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
 		45A59B201F72CA3F00B3B22E /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A59B231F72CA4000B3B22E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A59B2A1F72CA4000B3B22E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,10 +83,11 @@
 			isa = PBXGroup;
 			children = (
 				45A59B231F72CA4000B3B22E /* AppDelegate.swift */,
-				455C0B0D1F937BB1003BDDB6 /* profileInfo.swift */,
+				455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */,
 				450B67AC1F7C10D00092377B /* ProfileViewController.swift */,
 				450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */,
 				455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */,
+				455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */,
 				450D53131F8AC4070055C4E3 /* ConversationViewController.swift */,
 				450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */,
 				45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */,
@@ -249,10 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				450D53141F8AC4070055C4E3 /* ConversationViewController.swift in Sources */,
+				455C0B101F94A031003BDDB6 /* OperationDataManager.swift in Sources */,
 				450B67AD1F7C10D00092377B /* ProfileViewController.swift in Sources */,
 				45C7655C1F8A53770004EFBD /* ConversationsListViewController.swift in Sources */,
 				450D53121F8A9D650055C4E3 /* ConversationCell.swift in Sources */,
-				455C0B0E1F937BB1003BDDB6 /* profileInfo.swift in Sources */,
+				455C0B0E1F937BB1003BDDB6 /* ProfileInfo.swift in Sources */,
 				450D53161F8AC6BB0055C4E3 /* ChatTableViewCell.swift in Sources */,
 				455C0B0C1F937B4A003BDDB6 /* GCDDataManager.swift in Sources */,
 				45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */,
