@@ -9,6 +9,9 @@
 import Foundation
 
 protocol ModelManagerProtocol {
+    
     func saveData(info: ProfileInfo, completion: @escaping (_ result: Bool) -> ())
+    
     func loadData(completion: @escaping (_ result: ProfileInfo?) -> ())
+    
 }

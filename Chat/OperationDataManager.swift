@@ -18,9 +18,9 @@ class OperationDataManager: ModelManagerProtocol {
     func saveData(info: ProfileInfo, completion: @escaping (_ result: Bool) -> () ) {
         let queue = OperationQueue()
         
-        let saveDataOperation = SaveOperation(info: info, path: path) { success in
+        let saveDataOperation = SaveOperation(info: info, path: path) { result in
             OperationQueue.main.addOperation {
-                completion(success)
+                completion(result)
             }
         }
         queue.addOperation(saveDataOperation)
@@ -36,9 +36,7 @@ class OperationDataManager: ModelManagerProtocol {
                 completion(profile)
             }
         }
-        
         queue.addOperation(loadDataOperation)
-        
     }
     
 }

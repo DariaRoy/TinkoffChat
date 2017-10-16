@@ -69,8 +69,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
 
-    let dataManagerGCD = GCDDataManager()
-    let dataManagerOperation = OperationDataManager()
+//    let dataManagerGCD = GCDDataManager()
+//    let dataManagerOperation = OperationDataManager()
     
     @IBOutlet weak var pickImage: UIButton! {
         didSet {
@@ -91,17 +91,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         profileImage.layer.cornerRadius = pickImage.frame.height / 2
         
-        dataManagerGCD.loadData() {[weak self] (profile) in
+        
+        GCDDataManager().loadData() {[weak self] (profile) in
             if profile != nil {
                 self?.profileInfo = profile
-//                self?.nameTextField?.text = profile?.name
-//                self?.profileImage?.image = profile?.image
-//                self?.descriptionTextField?.text = profile?.description
             } else {
                 self?.profileInfo = ProfileInfo(name: "Name", description: "About you", image: #imageLiteral(resourceName: "placeholder"))
-//                self?.nameTextField?.text = "Name"
-//                self?.profileImage?.image = #imageLiteral(resourceName: "placeholder")
-//                self?.descriptionTextField?.text = "About you"
             }
         }
     }
@@ -237,46 +232,21 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func saveGCD(_ sender: UIButton) {
-        
-        spinner?.startAnimating()
-        profileChange = false
-        
-        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image, notWasChanged: !modelWasChanged)
-        
-        dataManagerGCD.saveData(info: info) { [weak self] (result) in
-            self?.spinner.stopAnimating()
-            
-            if result {
-                let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
-                
-                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(actionOK)
-                
-                self?.present(alertController, animated: true, completion: nil)
-                
-            } else {
-                let alertController = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
-                
-                let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(actionOK)
-                
-                let actionRepeat = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self?.saveGCD((self?.saveButtonGCD)!)})
-                alertController.addAction(actionRepeat)
-                
-                self?.present(alertController, animated: true, completion: nil)
-            }
-        }
-        modelWasChanged = false
-
+        self.saveProfileInfo(modelManager: GCDDataManager())
     }
     
     @IBAction func saveOperation(_ sender: UIButton) {
+        self.saveProfileInfo(modelManager: OperationDataManager())
+    }
+    
+    
+    func saveProfileInfo <T: ModelManagerProtocol> (modelManager: T) {
         spinner?.startAnimating()
         profileChange = false
         
         let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image, notWasChanged: !modelWasChanged)
         
-        dataManagerOperation.saveData(info: info) { [weak self] (result) in
+        modelManager.saveData(info: info) { [weak self] (result) in
             self?.spinner.stopAnimating()
             
             if result {
@@ -293,14 +263,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let actionOK = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(actionOK)
                 
-                let actionRepeat = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self?.saveOperation((self?.saveButtonOperation)!)})
+                let actionRepeat = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self?.saveProfileInfo(modelManager: modelManager)})
                 alertController.addAction(actionRepeat)
                 
                 self?.present(alertController, animated: true, completion: nil)
             }
         }
         modelWasChanged = false
-
+        
     }
 
 }
