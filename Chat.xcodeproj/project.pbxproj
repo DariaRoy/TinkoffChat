@@ -17,6 +17,7 @@
 		455C0B0C1F937B4A003BDDB6 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */; };
 		455C0B0E1F937BB1003BDDB6 /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */; };
 		455C0B101F94A031003BDDB6 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */; };
+		455C0B121F94D5DE003BDDB6 /* ModelManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C0B111F94D5DD003BDDB6 /* ModelManagerProtocol.swift */; };
 		45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A59B231F72CA4000B3B22E /* AppDelegate.swift */; };
 		45A59B2B1F72CA4000B3B22E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2A1F72CA4000B3B22E /* Assets.xcassets */; };
 		45A59B2E1F72CA4000B3B22E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A59B2C1F72CA4000B3B22E /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 		455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		455C0B111F94D5DD003BDDB6 /* ModelManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManagerProtocol.swift; sourceTree = "<group>"; };
 		45A59B201F72CA3F00B3B22E /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A59B231F72CA4000B3B22E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A59B2A1F72CA4000B3B22E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				45A59B231F72CA4000B3B22E /* AppDelegate.swift */,
 				455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */,
 				450B67AC1F7C10D00092377B /* ProfileViewController.swift */,
+				455C0B111F94D5DD003BDDB6 /* ModelManagerProtocol.swift */,
 				450B67AA1F7C08690092377B /* ProfileStoryboard.storyboard */,
 				455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */,
 				455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */,
@@ -260,6 +263,7 @@
 				450D53161F8AC6BB0055C4E3 /* ChatTableViewCell.swift in Sources */,
 				455C0B0C1F937B4A003BDDB6 /* GCDDataManager.swift in Sources */,
 				45A59B241F72CA4000B3B22E /* AppDelegate.swift in Sources */,
+				455C0B121F94D5DE003BDDB6 /* ModelManagerProtocol.swift in Sources */,
 				45C7655E1F8A5B7E0004EFBD /* ConversationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

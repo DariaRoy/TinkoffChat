@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class GCDDataManager {
+class GCDDataManager: ModelManagerProtocol {
     
     let path = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("profileInfo")
     
     func saveData(info: ProfileInfo, completion: @escaping (_ result: Bool) -> () ) {
         DispatchQueue.global().async {
             do {
-                if info.wasChanged == true {
+                if info.notWasChanged == true {
                     DispatchQueue.main.async {
                         completion(true)
                     }

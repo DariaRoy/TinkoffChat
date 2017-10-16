@@ -10,14 +10,13 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class OperationDataManager {
+class OperationDataManager: ModelManagerProtocol {
     
     let path = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("profileInfo")
     
     
     func saveData(info: ProfileInfo, completion: @escaping (_ result: Bool) -> () ) {
         let queue = OperationQueue()
-        //queue.name = "saveDataOperation"
         
         let saveDataOperation = SaveOperation(info: info, path: path) { success in
             OperationQueue.main.addOperation {
@@ -61,14 +60,17 @@ class SaveOperation: Operation {
         }
         
         do {
-            let json = self.info.asJSON
-            let data = try json.rawData()
-            try data.write(to: self.path)
-            completion(true)
+            if info.notWasChanged == true {
+                    completion(true)
+            } else {
+                let json = self.info.asJSON
+                let data = try json.rawData()
+                try data.write(to: self.path)
+                completion(true)
+            }
         } catch {
             completion(false)
         }
-        //completion(false)
     }
 }
 

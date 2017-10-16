@@ -13,22 +13,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     //model
-//    var profileInfo: ProfileInfo? {
-//        didSet {
-//            self.nameTextField?.text = profileInfo?.name
-//            self.profileImage?.image = profileInfo?.image
-//            self.descriptionTextField?.text = profileInfo?.description
-//        }
-//    }
+    var profileInfo: ProfileInfo? {
+        didSet {
+            self.nameTextField?.text = profileInfo?.name
+            self.profileImage?.image = profileInfo?.image
+            self.descriptionTextField?.text = profileInfo?.description
+        }
+    }
     
     
     var profileChange = false {
         didSet {
-            saveButtonGCD.isEnabled = profileChange
-            saveButtonOperation.isEnabled = profileChange
+            self.saveButtonGCD.isEnabled = profileChange
+            self.saveButtonOperation.isEnabled = profileChange
         }
     }
     
+    var modelWasChanged = false
     
     @IBOutlet weak var saveButtonGCD: UIButton! {
         didSet {
@@ -89,43 +90,37 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImage.layer.cornerRadius = pickImage.frame.height / 2
-       
-
-        
         
         dataManagerGCD.loadData() {[weak self] (profile) in
             if profile != nil {
-                //self?.profileInfo = profile
-                self?.nameTextField?.text = profile?.name
-                self?.profileImage?.image = profile?.image
-                self?.descriptionTextField?.text = profile?.description
-                print("YES, i am in viewdidload")
+                self?.profileInfo = profile
+//                self?.nameTextField?.text = profile?.name
+//                self?.profileImage?.image = profile?.image
+//                self?.descriptionTextField?.text = profile?.description
             } else {
-                print("NOOOO")
-                self?.nameTextField?.text = "Name"
-                self?.profileImage?.image = #imageLiteral(resourceName: "placeholder")
-                self?.descriptionTextField?.text = "About you"
+                self?.profileInfo = ProfileInfo(name: "Name", description: "About you", image: #imageLiteral(resourceName: "placeholder"))
+//                self?.nameTextField?.text = "Name"
+//                self?.profileImage?.image = #imageLiteral(resourceName: "placeholder")
+//                self?.descriptionTextField?.text = "About you"
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         let center: NotificationCenter = NotificationCenter.default
         center.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         center.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("viewWillDisappear")
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
     }
     
     @objc func keyboardDidShow (notification: Notification) {
-        print("keyboardDidShow")
         
         let info: NSDictionary = notification.userInfo! as NSDictionary
         let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -143,7 +138,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func keyboardWillHide (notification: Notification) {
-                print("keyboardWillHide")
         UIView.animate(withDuration: 0.25, delay: 0.00, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
         }, completion: nil)
@@ -159,13 +153,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-//        //new
-//        if textField === nameTextField {
-//            profileInfo?.name = textField.text ?? "Name"
-//        }
-//        if textField === descriptionTextField {
-//            profileInfo?.description = textField.text ?? "about you"
-//        }
+        
+        //new
+        if textField === nameTextField {
+            if profileInfo?.name != textField.text {
+                modelWasChanged = true
+            }
+        }
+        if textField === descriptionTextField {
+            if profileInfo?.description != textField.text {
+                modelWasChanged = true
+            }
+        }
         
         //Hide the keyboard.
         textField.resignFirstResponder()
@@ -177,9 +176,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //MARK: Action
     
     @IBAction func pickImageProfile(_ sender: UIButton) {
-//        nameTextField.resignFirstResponder()
-//        descriptionTextField.resignFirstResponder()
-        self.profileChange = true
+        
+        nameTextField.resignFirstResponder()
+        descriptionTextField.resignFirstResponder()
+        profileChange = true
 
         
         print("Выбери изображение профиля")
@@ -217,6 +217,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImage.image = selectedImage
+            
+            if profileInfo?.image != selectedImage {
+                modelWasChanged = true
+            }
+            
         }
         dismiss(animated: true, completion: nil)
     }
@@ -233,15 +238,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func saveGCD(_ sender: UIButton) {
         
-        saveButtonGCD.isEnabled = false
-        saveButtonOperation.isEnabled = false
         spinner?.startAnimating()
+        profileChange = false
         
-        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image)
+        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image, notWasChanged: !modelWasChanged)
+        
         dataManagerGCD.saveData(info: info) { [weak self] (result) in
             self?.spinner.stopAnimating()
-            self?.saveButtonGCD.isEnabled = true
-            self?.saveButtonOperation.isEnabled = true
+            
             if result {
                 let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
                 
@@ -262,18 +266,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self?.present(alertController, animated: true, completion: nil)
             }
         }
+        modelWasChanged = false
+
     }
     
     @IBAction func saveOperation(_ sender: UIButton) {
-        saveButtonGCD.isEnabled = false
-        saveButtonOperation.isEnabled = false
         spinner?.startAnimating()
+        profileChange = false
         
-        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image)
+        let info = ProfileInfo(name: nameTextField.text ?? "Name", description: descriptionTextField.text ?? "about you", image: profileImage.image, notWasChanged: !modelWasChanged)
+        
         dataManagerOperation.saveData(info: info) { [weak self] (result) in
             self?.spinner.stopAnimating()
-            self?.saveButtonGCD.isEnabled = true
-            self?.saveButtonOperation.isEnabled = true
+            
             if result {
                 let alertController = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: .alert)
                 
@@ -294,6 +299,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self?.present(alertController, animated: true, completion: nil)
             }
         }
+        modelWasChanged = false
+
     }
 
 }
