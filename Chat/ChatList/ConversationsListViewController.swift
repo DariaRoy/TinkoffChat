@@ -12,15 +12,27 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
     var chats = [[ConversationCell]]()
     
+    ////
     
+    
+    //let st = MultipeerCommunicator()
+    var communicationManage = CommunicatorManager()
+    
+    
+    ////
     @IBOutlet weak var tableView: UITableView!
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chats[section].count
+        if chats.count > 0 {
+             return chats[section].count
+        } else {
+            return 0
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -40,11 +52,25 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleChats()
+        //loadSampleChats()
+        
+        communicationManage.delegateList = self
+        
+        
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
+    
+    func addUser(name: String, ID:String) {
+        var chat = [ConversationCell]()
+        let chat1 = ConversationCell(name: name, message: nil, date: Date(timeIntervalSinceNow: 0), online: true, hasUnreadMessages: true)
+        chat.append(chat1)
+        chats.append(chat)
+        tableView.reloadData()
+    }
+    
+    
     
     private func loadSampleChats() {
         var chatsOnline = [ConversationCell]()
