@@ -28,20 +28,24 @@ class CommunicatorManager: CommunicatorDelegate {
         } else {
             delegateList?.addUser(name: "error", ID: userID)
         }
+        ///!!!!!!      delete it
         communicator.sendMessage(string: "fe", to: userName, completionHandler: nil)
     }
     
     func didLostUser(userID: String) {
-        
+        delegateList?.deleteUser(peerID: userID)
     }
+    
     
     //errors
     func failedToStartBrosingForUsers(error: Error) {
         print(error)
     }
+    
     func failedToStartAdvertising(error: Error) {
         print(error)
     }
+    
     
     
     //messages
@@ -50,9 +54,6 @@ class CommunicatorManager: CommunicatorDelegate {
     }
     
 }
-
-
-
 
 
 protocol CommunicatorDelegate: class {

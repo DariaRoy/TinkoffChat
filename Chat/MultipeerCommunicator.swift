@@ -51,7 +51,7 @@ class MultipeerCommunicator: NSObject,   Communicator {
     
     
     func sendMessage(string: String, to userID: String?, completionHandler: ((_ success : Bool, _ error: Error?) -> ())?) {
-        var string1 = "Hello"
+        let string1 = "Hello"
         do {
             if let session = sessions[userID ?? ""] {
                 let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(generateMessageId())\", \"text\": \"\(string1)\"}"

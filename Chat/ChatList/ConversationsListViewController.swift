@@ -10,12 +10,10 @@ import UIKit
 
 class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var chats = [[ConversationCell]]()
+    var chats: [String : ConversationCell] = [:]
     
     ////
     
-    
-    //let st = MultipeerCommunicator()
     var communicationManage = CommunicatorManager()
     
     
@@ -28,7 +26,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if chats.count > 0 {
-             return chats[section].count
+             return chats.count
         } else {
             return 0
         }
@@ -44,7 +42,8 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Conversation", for: indexPath)
         
         if let mycell = cell as? ConversationTableViewCell {
-            mycell.conversationCell = chats[indexPath.section][indexPath.row]
+            //mycell.conversationCell = chats[indexPath.section][indexPath.row]
+            mycell.conversationCell = ([ConversationCell](chats.values))[indexPath.row]
         }
         return cell
     }
@@ -63,14 +62,20 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
     
     func addUser(name: String, ID:String) {
-        var chat = [ConversationCell]()
-        let chat1 = ConversationCell(name: name, message: nil, date: Date(timeIntervalSinceNow: 0), online: true, hasUnreadMessages: true)
-        chat.append(chat1)
-        chats.append(chat)
-        tableView.reloadData()
+
+        chats[ID] = ConversationCell(name: name, message: nil, date: Date(timeIntervalSinceNow: 0), online: true, hasUnreadMessages: true)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
-    
+    func deleteUser(peerID: String) {
+        chats.removeValue(forKey: peerID)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+    }
     
     private func loadSampleChats() {
         var chatsOnline = [ConversationCell]()
@@ -144,8 +149,8 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         let chatHistory10 = ConversationCell(name: "Grandpa", message: "yes", date: Date(timeIntervalSinceNow: -473343), online: false, hasUnreadMessages: true)
         chatsHistory.append(chatHistory10)
         
-        chats.append(chatsOnline)
-        chats.append(chatsHistory)
+        //chats.append(chatsOnline)
+        //chats.append(chatsHistory)
     }
     
     
