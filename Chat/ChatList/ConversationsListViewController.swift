@@ -88,7 +88,9 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
     func didReceiveMessage(text: String, fromUser: String) {
         
         if let user = users[fromUser] {
-            user.messages.append((text: text, id: "in"))
+            if communicationManage.delegateChat == nil {
+                user.messages.append((text: text, id: "in"))
+            }
             chats[fromUser]?.message = user.messages.last?.text
             chats[fromUser]?.date = Date(timeIntervalSinceNow: 0)
         }
