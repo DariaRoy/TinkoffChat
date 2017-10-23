@@ -12,7 +12,12 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var tableView: UITableView!
     
+    
+    var user: User?
+    
     var messages =  [(text: String,id: String)]()
+    var communicationManage: CommunicatorManager?
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -42,12 +47,27 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleChat()
+        //loadSampleChat()
+        
+        messages = user?.messages ?? []
+        
+        communicationManage?.delegateChat = self
         
         self.tableView.estimatedRowHeight = 102
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
+    
+    func didReceiveMessage(text: String) {
+        messages.append((text: text, id: "in"))
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+    
+    
     func loadSampleChat() {
         var message = (text:"I", id: "in")
         messages.append(message)

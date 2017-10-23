@@ -10,14 +10,12 @@ import UIKit
 
 class ConversationsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var users = [String : User]()
+    
     var chats: [String : ConversationCell] = [:]
     
-    ////
-    
     var communicationManage = CommunicatorManager()
-    
-    
-    ////
+
     @IBOutlet weak var tableView: UITableView!
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,7 +28,6 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         } else {
             return 0
         }
-       
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -48,6 +45,20 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         return cell
     }
 
+    var selectedID: String?
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedID = ([String](chats.keys))[indexPath.row]
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("i am ready to send 1 ")
+        
+        selectedID = ([String](chats.keys))[indexPath.row]
+         
+        communicationManage.communicator.sendMessage(string: "fe", to: "MacBook Air — Air" , completionHandler: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,17 +73,34 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
     
     func addUser(name: String, ID:String) {
-
-        chats[ID] = ConversationCell(name: name, message: nil, date: Date(timeIntervalSinceNow: 0), online: true, hasUnreadMessages: true)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        print("add ")
+        if users[ID] == nil {
+            users[ID] = User(ID: ID, name: name, messages: nil, online: true, hasUnreadMessages: false)
+        }
+        chats[ID] = ConversationCell(name: name, message: nil, date: Date(timeIntervalSinceNow: 0), online: true, hasUnreadMessages: false)
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
         }
     }
     
     func deleteUser(peerID: String) {
         chats.removeValue(forKey: peerID)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+    
+    
+    
+    func didReceiveMessage(text: String, fromUser: String) {
+        
+        if let user = users[fromUser] {
+            user.messages.append((text: text, id: "in"))
+            chats[fromUser]?.message = user.messages.last?.text
+            chats[fromUser]?.date = Date(timeIntervalSinceNow: 0)
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
         }
         
     }
@@ -165,10 +193,11 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
             
             if let conversationViewController = destinationViewController as? ConversationViewController {
                 conversationViewController.navigationItem.title = (sender as? ConversationTableViewCell)?.nameLabel.text
+                conversationViewController.communicationManage = self.communicationManage
+                  conversationViewController.user = users[selectedID ?? ""]
             }
         }
         
     }
-
-
 }
+
