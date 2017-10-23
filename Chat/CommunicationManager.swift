@@ -23,8 +23,6 @@ class CommunicatorManager: CommunicatorDelegate {
     
     //discovering
     func didFoundUser(userID: String, userName: String?) {
-        print("found")
-        
         if let name = userName {
             delegateList?.addUser(name: name, ID: userID)
         } else {
@@ -50,18 +48,12 @@ class CommunicatorManager: CommunicatorDelegate {
     
     //messages
     func didReceiveMessage(text: String, fromUser: String, toUser:String) {
-        
-        print("receive", delegateChat,delegateChat?.user?.ID, fromUser )
-        
-        
+
         if let delegateList = delegateList {
             delegateList.didReceiveMessage(text: text, fromUser: fromUser)
         }
         if let delegateChat = delegateChat, delegateChat.user?.ID == fromUser {
-            print("in dialog")
-            //delegateChat.user?.messages.append((text: text, id: "in"))
             delegateChat.didReceiveMessage(text: text)
-            print(delegateChat.user?.messages)
         }
     }
     

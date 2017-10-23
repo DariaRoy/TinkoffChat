@@ -8,12 +8,25 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
     
     var user: User?
+    
+    @IBOutlet weak var sendButton: UIButton!
+    
+    @IBOutlet weak var textField: UITextField!
+    
+    var textCurrentMessage: String?
+    
+    @IBAction func tapSendButton(_ sender: UIButton) {
+        if let text =  textCurrentMessage {
+            communicationManage?.communicator.sendMessage(string: text, to: user?.ID, completionHandler: nil)
+            messages.append((text: text, id: "out"))
+        }
+    }
     
     var messages =  [(text: String,id: String)]()
     var communicationManage: CommunicatorManager?
@@ -25,6 +38,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
+        
     }
     
     
@@ -48,9 +62,10 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         //loadSampleChat()
-        
+
+        textField.delegate = self
         messages = user?.messages ?? []
-        
+
         communicationManage?.delegateChat = self
         
         self.tableView.estimatedRowHeight = 102
@@ -64,8 +79,29 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
             self.tableView.reloadData()
         }
     }
+   
     
     
+    //MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        //Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //Disable the Save button while editing.
+        //saveButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+
+        textCurrentMessage = textField.text
+        
+    }
     
     
     func loadSampleChat() {

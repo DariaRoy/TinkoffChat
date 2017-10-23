@@ -52,10 +52,9 @@ class MultipeerCommunicator: NSObject,   Communicator {
     
     func sendMessage(string: String, to userID: String?, completionHandler: ((_ success : Bool, _ error: Error?) -> ())?) {
         
-        let string1 = "Hello!!!!!!!"
         do {
             if let session = sessions[userID ?? ""], session.connectedPeers.count > 0 {
-                let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(generateMessageId())\", \"text\": \"\(string1)\"}"
+                let message = "{\"eventType\":\"TextMessage\", \"messageId\":\"\(generateMessageId())\", \"text\": \"\(string)\"}"
                 
                 try session.send(message.data(using: .utf8)!, toPeers: session.connectedPeers, with: .reliable)
                 completionHandler?(true, nil)

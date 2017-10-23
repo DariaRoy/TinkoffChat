@@ -52,13 +52,7 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
         return indexPath
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("i am ready to send 1 ")
-        
-        selectedID = ([String](chats.keys))[indexPath.row]
-         
-        communicationManage.communicator.sendMessage(string: "fe", to: "MacBook Air — Air" , completionHandler: nil)
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +67,6 @@ class ConversationsListViewController: UIViewController, UITableViewDataSource, 
 
     
     func addUser(name: String, ID:String) {
-        print("add ")
         if users[ID] == nil {
             users[ID] = User(ID: ID, name: name, messages: nil, online: true, hasUnreadMessages: false)
         }
