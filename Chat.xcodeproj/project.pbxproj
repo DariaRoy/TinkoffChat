@@ -69,35 +69,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		458156681F99F1B6006183A3 /* Profile */ = {
+		450006761FA7DAE5001E9AB6 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
-				455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */,
-				450B67AC1F7C10D00092377B /* ProfileViewController.swift */,
-				455C0B111F94D5DD003BDDB6 /* ModelManagerProtocol.swift */,
 				455C0B0B1F937B4A003BDDB6 /* GCDDataManager.swift */,
 				455C0B0F1F94A031003BDDB6 /* OperationDataManager.swift */,
+				4581566C1F99FB45006183A3 /* MultipeerCommunicator.swift */,
 			);
-			path = Profile;
+			path = CoreLayer;
 			sourceTree = "<group>";
 		};
-		458156691F99F67C006183A3 /* ChatList */ = {
+		450006771FA7DB04001E9AB6 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */,
-				45C7655D1F8A5B7E0004EFBD /* ConversationTableViewCell.swift */,
-				450D53111F8A9D650055C4E3 /* ConversationCell.swift */,
+				459687D21FA8BD3700C632AC /* Profile */,
+				459687D11FA8BD2A00C632AC /* ChatList */,
+				459687D01FA8BD1F00C632AC /* Chat */,
 			);
-			path = ChatList;
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
-		4581566A1F99F695006183A3 /* Chat */ = {
+		450006781FA7DB1A001E9AB6 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				450D53131F8AC4070055C4E3 /* ConversationViewController.swift */,
-				450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */,
+				455C0B111F94D5DD003BDDB6 /* ModelManagerProtocol.swift */,
+				457547921F9BFD81005D7F2C /* CommunicationManager.swift */,
 			);
-			path = Chat;
+			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
 		4581566B1F99F6B4006183A3 /* Supporting Files */ = {
@@ -108,6 +106,35 @@
 				45A59B2C1F72CA4000B3B22E /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		459687D01FA8BD1F00C632AC /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				450D53131F8AC4070055C4E3 /* ConversationViewController.swift */,
+				450D53151F8AC6BB0055C4E3 /* ChatTableViewCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		459687D11FA8BD2A00C632AC /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				457547B41F9D351E005D7F2C /* User.swift */,
+				450D53111F8A9D650055C4E3 /* ConversationCell.swift */,
+				45C7655B1F8A53760004EFBD /* ConversationsListViewController.swift */,
+				45C7655D1F8A5B7E0004EFBD /* ConversationTableViewCell.swift */,
+			);
+			path = ChatList;
+			sourceTree = "<group>";
+		};
+		459687D21FA8BD3700C632AC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				455C0B0D1F937BB1003BDDB6 /* ProfileInfo.swift */,
+				450B67AC1F7C10D00092377B /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		45A59B171F72CA3F00B3B22E = {
@@ -131,15 +158,12 @@
 		45A59B221F72CA4000B3B22E /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				450006781FA7DB1A001E9AB6 /* ServiceLayer */,
+				450006771FA7DB04001E9AB6 /* PresentationLayer */,
+				450006761FA7DAE5001E9AB6 /* CoreLayer */,
 				45A59B231F72CA4000B3B22E /* AppDelegate.swift */,
 				450B67AA1F7C08690092377B /* Storyboard.storyboard */,
-				4581566C1F99FB45006183A3 /* MultipeerCommunicator.swift */,
-				457547921F9BFD81005D7F2C /* CommunicationManager.swift */,
-				457547B41F9D351E005D7F2C /* User.swift */,
 				45A59B2F1F72CA4000B3B22E /* Info.plist */,
-				458156681F99F1B6006183A3 /* Profile */,
-				4581566A1F99F695006183A3 /* Chat */,
-				458156691F99F67C006183A3 /* ChatList */,
 				4581566B1F99F6B4006183A3 /* Supporting Files */,
 			);
 			path = Chat;
